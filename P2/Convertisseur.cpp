@@ -4,14 +4,9 @@
 
 Convertisseur::Convertisseur(): m_valeur(0.0), m_unite("C"){};
 
-Convertisseur::Convertisseur(double valeur) {
-    this->m_valeur = valeur;
-}
+Convertisseur::Convertisseur(double valeur): m_valeur(valeur), m_unite("C") {}
 
-Convertisseur::Convertisseur(double valeur, const std::string& unite){
-    this->m_valeur = valeur;
-    this->m_unite = unite;
-}
+Convertisseur::Convertisseur(double valeur, const std::string& unite): m_valeur(valeur), m_unite(unite) {}
 
 double Convertisseur::getValeur()const {
     return this->m_valeur;
