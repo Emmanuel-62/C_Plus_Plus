@@ -6,30 +6,34 @@ Personnage::Personnage():
 _nom("Inconnu"),
 _vie(100), 
 _mana(100), 
-_nomArme("Epee rouillee"), 
-_degatsArme(10)
+_arme("Epee rouillee", 10)
 {
-    std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
+    //std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
 }
 
-Personnage::Personnage(std::string& nom):
+Personnage::Personnage(const std::string& nom):
 _nom(nom),
 _vie(100), 
 _mana(100), 
-_nomArme("Epee rouillee"), 
-_degatsArme(10)
+_arme("Epee rouillee", 10)
 {
-    std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
+    //std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
 }
+
+Personnage::Personnage(const std::string& nomArme, int degats):
+_nom("Inconnu"),
+_vie(100), 
+_mana(100), 
+_arme(nomArme, degats)
+{}
 
 Personnage::Personnage(Personnage const& autre):
 _nom(autre._nom),
 _vie(autre._vie),
 _mana(autre._mana),
-_nomArme(autre._nomArme),
-_degatsArme(autre._degatsArme)
+_arme(autre._arme)
 {
-    std::cout <<"Le construteur par copie est pour -> " <<this->_nom <<std::endl;
+    //std::cout <<"Le construteur par copie est pour -> " <<this->_nom <<std::endl;
 }
 
 void Personnage::recevoirDegats(int nbDegats){
@@ -38,7 +42,7 @@ void Personnage::recevoirDegats(int nbDegats){
 }
 
 void Personnage::attaquer(Personnage& cible){
-    cible.recevoirDegats(this->_degatsArme);
+    cible.recevoirDegats(this->_arme.getDegats());
 }
 
 void Personnage::boirePotionDeVie(int quantitePotion){
@@ -47,12 +51,18 @@ void Personnage::boirePotionDeVie(int quantitePotion){
 }
 
 void Personnage::changerArme(std::string nomNouvelleArme, int degatsNouvelleArme){
-    this->_nomArme = nomNouvelleArme;
-    this->_degatsArme = degatsNouvelleArme;
+    this->_arme.changer(nomNouvelleArme, degatsNouvelleArme);
 }
 
 bool Personnage::estVivant(){
     return this->_vie > 0;
+}
+
+void Personnage::afficherEtat() const {
+    std::cout <<"Nom -> " <<this->_nom <<std::endl;
+    std::cout <<"Vie -> " <<this->_vie <<std::endl;
+    std::cout <<"Mana -> " <<this->_mana <<std::endl;
+    this->_arme.afficher();
 }
 
 std::string Personnage::getNom() const{

@@ -3,17 +3,19 @@
 
 #include <string>
 
+#include "Arme.hpp"
+
 class Personnage {
     private:
         std::string _nom;
         int _vie;
         int _mana;
-        std::string _nomArme;
-        int _degatsArme;
+        Arme _arme;
     
     public:
         Personnage();
-        Personnage(std::string&);
+        Personnage(const std::string&);
+        Personnage(const std::string&, int);
         Personnage(Personnage const&);
 
         void recevoirDegats(int);
@@ -21,6 +23,7 @@ class Personnage {
         void boirePotionDeVie(int);
         void changerArme(std::string, int);
         bool estVivant();
+        void afficherEtat() const;
 
         std::string getNom() const;
         void setNom(const std::string&);
