@@ -5,36 +5,40 @@
 Personnage::Personnage():
 _nom("Inconnu"),
 _vie(100), 
-_mana(100), 
-_arme("Epee rouillee", 10)
+_mana(100),
+_arme(0) 
 {
-    //std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
+    this->_arme = new Arme();
 }
 
 Personnage::Personnage(const std::string& nom):
 _nom(nom),
 _vie(100), 
-_mana(100), 
-_arme("Epee rouillee", 10)
+_mana(100),
+_arme(0)
 {
-    //std::cout <<"Le construteur est pour -> " <<this->_nom <<std::endl;
+    this->_arme = new Arme();
 }
 
 Personnage::Personnage(const std::string& nomArme, int degats):
 _nom("Inconnu"),
 _vie(100), 
-_mana(100), 
-_arme(nomArme, degats)
-{}
+_mana(100),
+_arme(0)
+{
+    this->_arme = new Arme(nomArme, degats);
+}
+
+Personnage::~Personnage(){
+    delete _arme;
+}
 
 Personnage::Personnage(Personnage const& autre):
 _nom(autre._nom),
 _vie(autre._vie),
 _mana(autre._mana),
 _arme(autre._arme)
-{
-    //std::cout <<"Le construteur par copie est pour -> " <<this->_nom <<std::endl;
-}
+{}
 
 void Personnage::recevoirDegats(int nbDegats){
     this->_vie -= nbDegats;
@@ -42,7 +46,7 @@ void Personnage::recevoirDegats(int nbDegats){
 }
 
 void Personnage::attaquer(Personnage& cible){
-    cible.recevoirDegats(this->_arme.getDegats());
+    cible.recevoirDegats(this->_arme->getDegats());
 }
 
 void Personnage::boirePotionDeVie(int quantitePotion){
@@ -51,7 +55,7 @@ void Personnage::boirePotionDeVie(int quantitePotion){
 }
 
 void Personnage::changerArme(std::string nomNouvelleArme, int degatsNouvelleArme){
-    this->_arme.changer(nomNouvelleArme, degatsNouvelleArme);
+    this->_arme->changer(nomNouvelleArme, degatsNouvelleArme);
 }
 
 bool Personnage::estVivant(){
@@ -62,7 +66,7 @@ void Personnage::afficherEtat() const {
     std::cout <<"Nom -> " <<this->_nom <<std::endl;
     std::cout <<"Vie -> " <<this->_vie <<std::endl;
     std::cout <<"Mana -> " <<this->_mana <<std::endl;
-    this->_arme.afficher();
+    this->_arme->afficher();
 }
 
 std::string Personnage::getNom() const{

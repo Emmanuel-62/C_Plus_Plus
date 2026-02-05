@@ -10,12 +10,15 @@ class Personnage {
         std::string _nom;
         int _vie;
         int _mana;
-        Arme _arme;
+        Arme *_arme;
     
     public:
         Personnage();
         Personnage(const std::string&);
         Personnage(const std::string&, int);
+
+        ~Personnage();
+
         Personnage(Personnage const&);
 
         void recevoirDegats(int);
